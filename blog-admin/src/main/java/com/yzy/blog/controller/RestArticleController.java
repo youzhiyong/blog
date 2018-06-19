@@ -88,7 +88,7 @@ public class RestArticleController {
             return ResultUtil.error("请至少选择一个标签");
         }
         if (null != file) {
-            String filePath = FileUtil.uploadToQiniu(file, QiniuUploadType.COVER_IMAGE, true);
+            String filePath = FileUtil.upload(file, QiniuUploadType.COVER_IMAGE, false);
             // 保存封面图片
             article.setCoverImage(filePath);
         }

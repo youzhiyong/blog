@@ -62,4 +62,21 @@ public class AppProperties {
         return this.qiniu.get("bucketName");
     }
 
+    public Map<String, String> upyun = new HashMap<>();
+
+    public String getUpYunUsername() {
+        return this.upyun.get("username");
+    }
+
+    public String getUpYunPassword() {
+        return this.upyun.get("password");
+    }
+
+    public String getUpYunBucketName() {
+        return this.upyun.get("bucketName");
+    }
+
+    public boolean getUpYunIsDebug() {
+        return Boolean.valueOf(this.upyun.get("bucketName"));
+    }
 }

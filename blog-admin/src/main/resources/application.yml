@@ -140,4 +140,11 @@ app:
         secretKey: SECRET_KEY
         # 七牛BUCKET_NAME
         bucketName: BUCKET_NAME
+
+    #请自行注册又拍云，注册地址：https://console.upyun.com/register/?invite=H1sVnkbWQ
+    upyun:
+        bucketName: store-yzy   #云存储的服务名
+        username: yo******ng    #操作员
+        password: yo******18    #密码
+        isDebug: false
 ####################################自定义配置##########################################

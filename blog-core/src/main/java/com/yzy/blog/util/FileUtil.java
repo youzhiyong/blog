@@ -25,6 +25,7 @@ import com.yzy.blog.plugin.QiniuApi;
 import com.yzy.blog.business.enums.QiniuUploadType;
 import com.yzy.blog.framework.exception.ZhydFileException;
 import com.yzy.blog.plugin.QiniuApi;
+import com.yzy.blog.plugin.UpyunAPI;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -117,29 +118,39 @@ public class FileUtil {
         }
     }
 
-    public static String uploadToQiniu(MultipartFile file, QiniuUploadType uploadType, boolean canBeNull) {
+    /**
+     *
+     * @param file
+     * @param uploadType
+     * @param isQiniu  true: 上传到七牛云    false: 上传到又拍云
+     * @return
+     */
+    public static String upload(MultipartFile file, QiniuUploadType uploadType, boolean isQiniu) {
         // 不可为空并且file为空，抛出异常
-        if (!canBeNull && null == file) {
+        if (null == file) {
             throw new ZhydFileException("请选择图片");
-        }
-        // 可为空并且file为空，忽略后边的代码，返回null
-        if (canBeNull && null == file) {
-            return null;
         }
         try {
             String filePath = "";
             boolean isPicture = FileUtil.isPicture(FileUtil.getSuffix(file.getOriginalFilename()));
             if (isPicture) {
-                filePath = QiniuApi.getInstance()
-                        .withFileName(file.getOriginalFilename(), uploadType)
-                        .upload(file.getBytes());
-                return UrlCodeUtil.encode(filePath);
+                if (isQiniu) {
+                    //使用七牛云
+                    filePath = QiniuApi.getInstance()
+                            .withFileName(file.getOriginalFilename(), uploadType)
+                            .upload(file.getBytes());
+                    return UrlCodeUtil.encode(filePath);
+                } else {
+                    //使用又拍云
+                    return UpyunAPI.getInstance().writeFile(file.getOriginalFilename(), file.getBytes());
+                }
+
             } else {
                 throw new ZhydFileException("只支持图片");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ZhydFileException("上传图片到七牛云发生异常", e);
+            throw new ZhydFileException("上传图片发生异常", e);
         }
     }
 

@@ -48,14 +48,14 @@ public class RestApiController {
     private BizArticleService articleService;
 
     /**
-     * 上传文件到七牛云
+     * 上传文件
      *
      * @param file
      * @return
      */
-    @PostMapping("/upload2Qiniu")
-    public ResponseVO upload2Qiniu(@RequestParam("file") MultipartFile file) {
-        String filePath = FileUtil.uploadToQiniu(file, QiniuUploadType.SIMPLE, false);
+    @PostMapping("/upload")
+    public ResponseVO upload(@RequestParam("file") MultipartFile file) {
+        String filePath = FileUtil.upload(file, QiniuUploadType.SIMPLE, false);
         return ResultUtil.success("图片上传成功", filePath);
     }
 
