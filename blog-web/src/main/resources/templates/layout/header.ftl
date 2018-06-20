@@ -8,7 +8,7 @@
         </div>
         <div class="menu-topmenu-container pull-right">
             <ul class="list-unstyled list-inline pull-left">
-                <li><a href="${config.siteUrl}/about" class="menu_a" title="关于博客" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-info fa-fw"></i>关于</a></li>
+                <li><a href="${config.siteUrl}/resume" class="menu_a" title="个人简历" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-info fa-fw"></i>个人简历</a></li>
                 <li><a href="${config.siteUrl}/links" class="menu_a" title="友情链接" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-link fa-fw"></i>友情链接</a></li>
             </ul>
         </div>
