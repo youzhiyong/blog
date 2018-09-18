@@ -23,10 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -83,6 +80,16 @@ public class MyWebSocket {
     public void onMessage(String message, Session session) {
         LOG.info("{}来自客户端的消息:{}", session.getId(), message);
         WebSocketUtil.sendMessage(message, session);
+    }
+
+    /**
+     * 发生异常时的回调方法
+     * @param throwable
+     * @param session
+     */
+    @OnError
+    public void onError(Throwable throwable, Session session) {
+        LOG.info("[WebSocketServer] Connection Exception : throwable = " + throwable.getMessage());
     }
 
     private String getOnlineCount() {

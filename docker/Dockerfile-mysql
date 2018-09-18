@@ -1,0 +1,18 @@
+# Docker image of mysql
+# version 1.0.0
+# author youzhiyong
+# desc 将初始化的sql文件放到docker-entrypoint-initdb.d目录下，并添加可执行权限，为什么是这个目录？可以自行启动一个mysql容器，然后进入容器内部查看
+FROM mysql:5.5
+MAINTAINER youzhiyong(847371174@qq.com)
+
+#定义会被容器自动执行的目录 
+ENV AUTO_RUN_DIR /docker-entrypoint-initdb.d 
+
+#定义初始化sql文件 
+ENV INSTALL_DB_SQL dblog.sql 
+
+#把要执行的sql文件放到/docker-entrypoint-initdb.d/目录下，容器会自动执行这个sql 
+COPY ./$INSTALL_DB_SQL $AUTO_RUN_DIR/ 
+
+#给执行文件增加可执行权限 
+RUN chmod a+x $AUTO_RUN_DIR/$INSTALL_DB_SQL
